@@ -22,7 +22,9 @@ Every project have it's own unique history, respect it, do not make hasty decisi
 
 UPDATE
 ---
-For sure I don't mean that you should write crappy code. I mostly talking about premature-optimizations. Right now there are lot of tools and techniques that allow to control code quality. At least test, code-reviews and code analysers. 
+For sure I don't mean that you should write crappy code. I mostly talking about premature-optimizations and rewriting from scratch. Right now there are lot of tools and techniques that allow to control code quality. At least test, code-reviews and code analysers.
+
+Excellent article from Joel Spolsky [Things You Should Never Do](http://www.joelonsoftware.com/articles/fog0000000069.html) 
 
  
 ____
