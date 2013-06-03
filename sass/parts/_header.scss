@@ -2,52 +2,40 @@ $header-height: 30px;
 
 #header{
 	height: $header-height;
-	padding: 30px 0;
+	padding: 10px 0;
 	border-bottom: 1px solid $color-gray04;
 	line-height: $header-height;
-	@media screen and (max-width: 1040px){
-		height: auto;
-		position: relative;
-		padding-bottom: 10px;
-	}
+	margin-bottom: 1.5em;
+
 	a{
 		color: $color-gray01;
 		@include transition(color 0.3s);
 		&:hover{
 			color: $color-main;
 		}
+		
+		text-decoration: none;
 	}
+
 	h1{
 		float: left;
 		font-weight: 300;
-		font-size: 30px;
-		@media screen and (max-width: 1040px){
-			float: none;
-		}
+		font-size: 25px;		
 	}
 }
+
 #main-nav{
 	float: left;
 	margin-left: 30px;
-	@media screen and (max-width: 1040px){
-		float: none;
-		margin-left: 0;
-		margin-top: 15px;
+
+	a {
+		text-decoration: none;		
 	}
+	
 	>ul{
-		@media screen and (max-width: 600px){
-			display: none;
-		}
 		>li{
 			margin-left: 50px;
 			@include inline-block;
-			@media screen and (max-width: 1040px){
-				margin-left: 0;
-				margin-right: 50px;
-				&:last-of-type{
-					margin-right: 0;
-				}
-			}
 			&:hover{
 				>a{
 					color: $color-main;
@@ -67,9 +55,6 @@ $header-height: 30px;
 						content: "";
 					}
 				}
-				@media screen and (max-width: 1040px){
-					padding: 18px 0;
-				}
 			}
 		}
 		ul{
@@ -82,9 +67,8 @@ $header-height: 30px;
 			border: 1px solid $color-gray03;
 			list-style: none;
 			display: none;
-			@media screen and (max-width: 1040px){
-				top: 40px;
-			}
+			
+
 			@include box-shadow(0 4px 8px rgba(0,0,0,0.1));
 			@include border-radius(0 0 5px 5px);
 			ul{
@@ -140,18 +124,15 @@ $header-height: 30px;
 	select{
 		display: none;
 		margin-bottom: 10px;
-		@media screen and (max-width: 600px){
-			display: block;
-		}
+
 	}
 }
 #mobile-nav{
 	display: none;
 	height: 37px;
 	position: relative;
-	@media screen and (max-width: 600px){
-		display: block;
-	}
+	
+
 	a{
 		display: block;
 	}
@@ -257,22 +238,15 @@ $header-height: 30px;
 	}
 }
 #sub-nav{
-	@media screen and (max-width: 1040px){
-		position: absolute;
-		top: 30px;
-		right: 0;
+	a {
+		float: right;
 	}
-	@media screen and (max-width: 600px){
-		display: none;
-	}
+
 	.search{
 		float: left;
 		margin-top: 1px;
 		position: relative;
-		@media screen and (max-width: 1040px){
-			float: none;
-			margin-top: 15px;
-		}
+
 		&:before{
 			content: "\f002";
 			color: $color-gray03;
@@ -302,13 +276,7 @@ $header-height: 30px;
 	.social{
 		float: left;
 		margin-right: 15px;
-		@media screen and (max-width: 1040px){
-			float: none;
-			margin-right: 0;
-			a:last-of-type{
-				margin-right: 0;
-			}
-		}
+
 		a{
 			@include border-radius(50%);
 			@include inline-block;

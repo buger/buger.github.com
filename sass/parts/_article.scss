@@ -9,14 +9,15 @@ article{
 	@media screen and (max-width: 600px){
 		padding: 15px 0;
 	}
-	h2.title{
+
+	h1.title{
 		line-height: 35px;
 
-		font-size: 45px;
 		font-weight: bold;
 		margin-bottom: 1em;
-		text-align: center;		
-
+		text-align: left;		
+		letter-spacing: -1px;
+		
 		a{
 			color: $color-gray01;
 		}

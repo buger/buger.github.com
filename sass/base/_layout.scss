@@ -6,10 +6,12 @@ $max-width: 700px;
 }
 body{
 	font-family: $font-default;
-	font-weight: 100;
-	font-size: 20px;
+	font-weight: 400;
+	font-size: 22px;
 	background: $color-background;
 	color: $color-gray01;
+	-webkit-font-smoothing: antialiased;
+
 	@media screen and (max-width: 1040px){
 		margin: 0 20px;
 	}
@@ -20,9 +22,12 @@ body{
 
 p {
 	font-size: 22px;
-	line-height: 1.5em;
+	line-height: 1.45;
 	text-align: left;
-	font-weight: 100;
+	font-weight: 400;
+	color: $color-gray01;	
+
+	margin-bottom: 31px;
 
 	a {
 		text-decoration: underline !important;
@@ -34,24 +39,29 @@ strong {
 }
 
 h1{
-	font-size: 1.8em;
-	font-weight: 300;
-	text-align: center;
+	font-size: 52px;
+	font-family: 'freight-sans-pro', sans-serif;
+	margin-bottom: 2em;
 }
+
 h2{
-	font-size: 45px;
+	font-size: 1.5em;
 	font-weight: bold;
 	margin-bottom: 2em;
-	text-align: center;
+	font-family: 'freight-sans-pro', sans-serif;
 }
 h3{
 	font-size: 1.3em;
 	font-weight: 300;
 }
 a{
-	text-decoration: none;
+	text-decoration: underline;;
 	outline-width: 0;
 	color: $color-main;
+
+	&:active, &:hover {
+		color:#c00;
+	};
 }
 
 .typekit-badge {
@@ -77,4 +87,46 @@ a{
 
 .code {
 
+}
+
+#recentposts {
+	margin-top: 1em;
+
+	a:hover {
+		text-decoration: underline;
+	}
+
+	li {
+		list-style: none;
+	}
+
+	time {
+		float: right;
+	}
+}
+
+#aboutme {
+	background: url(https://secure.gravatar.com/avatar/f7c8edd577d13b8930d5522f28123510?s=300) top right no-repeat;	
+	min-height: 300px;
+	width: 100%;
+
+	text-align: left;
+	margin: 0;
+	padding: 0;
+
+	ul {
+		li {
+			list-style: none;
+		}
+
+		margin-bottom: 1em;
+	}
+
+	h2 {
+		text-align: left !important;
+		margin: 0;
+		padding: 0;
+		clear: both;
+		margin-bottom: 0.5em;
+	}
 }

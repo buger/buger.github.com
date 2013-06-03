@@ -3,7 +3,7 @@
 # ----------------------- #
 
 url: http://leonsbox.com
-title: Leonid Bugaev
+title: leonsbox.com
 subtitle: A blogging framework for hackers.
 author: Leonid Bugaev
 simple_search: http://google.com/search
@@ -65,8 +65,8 @@ github_skip_forks: true
 
 # Twitter
 twitter_user: buger
-twitter_tweet_count: 1
-twitter_show_replies: true
+twitter_tweet_count: 0
+#twitter_show_replies: true
 twitter_follow_button: true
 twitter_show_follower_count: true
 twitter_tweet_button: true
