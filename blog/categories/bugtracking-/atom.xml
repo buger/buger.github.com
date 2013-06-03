@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: bugtracking, | leonsbox.com]]></title>
+  <link href="http://leonsbox.com/blog/categories/bugtracking-/atom.xml" rel="self"/>
+  <link href="http://leonsbox.com/"/>
+  <updated>2013-06-03T16:42:49+00:00</updated>
+  <id>http://leonsbox.com/</id>
+  <author>
+    <name><![CDATA[Leonid Bugaev]]></name>
+    <email><![CDATA[leonsbox@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Open letter to Airbrake.io]]></title>
+    <link href="http://leonsbox.com/blog/2012/11/20/open-letter-to-airbrake-dot-io/"/>
+    <updated>2012-11-20T13:26:00+00:00</updated>
+    <id>http://leonsbox.com/blog/2012/11/20/open-letter-to-airbrake-dot-io</id>
+    <content type="html"><![CDATA[<p><blockquote><p>TL;DR</p></p><p><p>If you provide solution for such critical development parts as error tracking, you should work all the time.</p></blockquote></p>
+
+<p>Imagine that your site is down, you get lot of error, your business loses money. What can make you more angry? Oh, i say: when debug tool you rely on says that you reach limit of errors per minute, and just shows nothing, except this message. When you have multiple servers with multiple apps, digging through logs for errors without tool above becomes real pain.</p>
+
+<p>Our load only about 30r/s, let's imagine that something bad happened and  20 of this requests throwing errors. It will immediately reach your limits even on most expensive plan ( 1200 errors/minute - $999), so <strong>upgrading account will not help</strong>. And when you reach this limit, even if you fixed it in 15 minutes, you will get paralyzed for full day. I really want to give you my money, just give me reason.</p>
+
+<h3>Suggestion for Airbrake team:</h3>
+
+<ul>
+<li><p>use soft limits, allow bursting. Just stopping working until user will upgrade plan (it will not help, ha ha), is not solution.</p></li>
+<li><p>even if limit reached, you should allow view at least 1 error of each type, you can just disable some of functionality like similar errors.</p></li>
+</ul>
+
+
+<p>It's a great product, i can see amazing insights, and it helps a lot during development. But it just did't work when it is most needed.</p>
+
+<p><strong>When shit happens we loosing more value than you provide.</strong></p>
+
+<h3>Lessons learned</h3>
+
+<p>Do not trust such important parts as debugging to external solution, always have plan B.</p>
+
+<hr />
+
+<p>You can discuss this post at <a href="http://news.ycombinator.com/item?id=4808539">Hacker News</a></p>
+]]></content>
+  </entry>
+  
+</feed>
