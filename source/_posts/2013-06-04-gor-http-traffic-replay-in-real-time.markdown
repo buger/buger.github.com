@@ -74,3 +74,8 @@ Since Gor written in Go, everything is statically linked, and you can just downl
 At [Granify](http://granify.com), we use it on production for some time, and very happy with results. 
 
 Happy testing!
+
+
+____
+
+You can discuss this post at [Hacker News](https://news.ycombinator.com/item?id=5820338)
