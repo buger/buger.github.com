@@ -4,7 +4,7 @@
   <title><![CDATA[leonsbox.com]]></title>
   <link href="http://leonsbox.com/atom.xml" rel="self"/>
   <link href="http://leonsbox.com/"/>
-  <updated>2013-06-04T08:05:30+00:00</updated>
+  <updated>2013-06-04T16:09:47+00:00</updated>
   <id>http://leonsbox.com/</id>
   <author>
     <name><![CDATA[Leonid Bugaev]]></name>
@@ -12,6 +12,79 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Gor - replay HTTP traffic in real-time]]></title>
+    <link href="http://leonsbox.com/blog/2013/06/04/gor-http-traffic-replay-in-real-time/"/>
+    <updated>2013-06-04T08:10:00+00:00</updated>
+    <id>http://leonsbox.com/blog/2013/06/04/gor-http-traffic-replay-in-real-time</id>
+    <content type="html"><![CDATA[<p><em>TL;DR The more realistic test data, the better. I wrote <strong><a href="https://github.com/buger/gor/">Gor</a></strong> - automated real-time http traffic replay solution that can forward part of your production traffic to staging or anywhere you want, and rate-limit it if needed</em></p>
+
+<p>Here at <a href="http://granify.com">Granify</a> we work with LOT of user generated data, our business build on it. So main priority is to ensure that we collecting and processing it right.</p>
+
+<p>You can&#8217;t imagine how weird can be user input; it can be caused by a lot of reasons: proxies, browsers you never heard of, your client side bugs, and much more.</p>
+
+<blockquote><p>No matter how many tests and fixtures you have, they just can&#8217;t cover all cases. Production traffic always differs from planned.</p></blockquote>
+
+
+<p>More over you can just broke everything while deploying a new version, even if tests pass. This happen constantly.</p>
+
+<p>There is a whole layer of errors that just can&#8217;t be easily find via automated  and manual testing. Concurrency, server environment specific bugs, some bugs can occur from requests called in a particular order, and etc.</p>
+
+<p>We can do a few thing to ease finding such bugs improve overall stability:</p>
+
+<h2>Testing on staging first</h2>
+
+<p><a href="http://en.wikipedia.org/wiki/Staging_site">Staging</a> environment is mandatory, and it <b>should</b> be identical to production. Using tools like <a href="http://puppetlabs.com/">Puppet</a> or <a href="http://www.opscode.com/chef/">Chief</a> helps a lot.</p>
+
+<p>You should require developers manually test all code on staging.</p>
+
+<p>This helps to find most obvious bugs, but it&#8217;s far from what you can get on production.</p>
+
+<h2>Testing on production data</h2>
+
+<p>There are few technics to do this (better to use both):</p>
+
+<ol>
+<li><p>Deploying changes only to one of production servers, so part of users will be served by the new code. This technic has some downsides. Some of your users can see errors/bugs, and maybe you have to use &#8220;stick&#8221; sessions. This is quite similar to A/B testing.</p></li>
+<li><p>Replaying production traffic to staging environment.</p></li>
+</ol>
+
+
+<p>Ilya Grigorik wrote a nice article on this: <a href="http://www.igvita.com/2008/09/30/load-testing-with-log-replay">Load Testing With Log Replay</a></p>
+
+<p>In all articles i read Log replay technic mostly mentioned in the context of load testing. I want to show how use it for automated bug testing.</p>
+
+<p>Tools like <a href="http://jmeter.apache.org/">jMeter</a>, <a href="https://code.google.com/p/httperf/">httperf</a> or <a href="http://tsung.erlang-projects.org/">Tsung</a> have support for replaying logs, but it&#8217;s very rudimentary or focus on load testing and not emulating real-users. Feel the difference? Real users not just list of requests, they have proper timing between requests, different http headers and etc. For load testing, it does not matter, but for bug testing matter a lot.</p>
+
+<p>Plus this tools require action and complex configuration to be run.</p>
+
+<blockquote><p>Developers are lazy. If you want your developers to use your tool/service it should be automated as much as possible, better that if nobody notice it at all.</p></blockquote>
+
+
+<p>Thats why we invented CI, automatic server configuration tools (Puppet, Chief, Fabric), EC2, and etc.</p>
+
+<h2>Automating Log replay</h2>
+
+<p>I wrote a simple tool <a href="https://github.com/buger/gor/">Gor</a></p>
+
+<p>Gor allows you automatically replicate traffic from production to staging (or anywhere you want) in real-time, 24 hours a day, with minimal effort. So your staging environment always gets part of production traffic.</p>
+
+<p>Gor consists of 2 parts: Listener and Replay server. You should install Listener on production web servers, and Replay server on a separate machine, that will forward traffic to given address. I just put this diagram:</p>
+
+<p><img src="https://a248.e.akamai.net/camo.github.com/c802ae10dfd1b0b2519c5726eedad31bac18c0f6/687474703a2f2f692e696d6775722e636f6d2f7a5a43465043592e706e67" alt="Diagram" /></p>
+
+<p><strong>Gor support rate limiting</strong>. It is very important feature since staging environment usually use fewer servers than production, and you want to set maximum requests per second that staging can handle.</p>
+
+<p>You can find all needed info on project <a href="https://github.com/buger/gor/">Github</a> page.</p>
+
+<p>Since Gor written in Go, everything is statically linked, and you can just download binaries from this link <a href="https://drive.google.com/folderview?id=0B46uay48NwcfWFowc1E4a1BISVU&amp;usp=sharing">Downloads</a></p>
+
+<p>At <a href="http://granify.com">Granify</a>, we use it on production for some time, and very happy with results.</p>
+
+<p>Happy testing!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Your code sucks]]></title>
