@@ -17,7 +17,7 @@ You can't imagine how weird user input can be; oddities come from many sources--
 No matter how many tests and fixtures you have, they just can't cover all cases. Production traffic always differs from your expectations. 
 {% endblockquote%}
 
-Moreover, you can just brake everything when deploying a new version, even if tests pass. This happens constantly.
+Moreover, you can just break everything when deploying a new version, even if tests pass. This happens constantly.
 
 There is a whole layer of errors that just can't be easily found via automated  and manual testing: concurrency, server environment specific bugs, some bugs can occur from requests called in a particular order, and etc. 
 
