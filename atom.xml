@@ -4,7 +4,7 @@
   <title><![CDATA[leonsbox.com]]></title>
   <link href="http://leonsbox.com/atom.xml" rel="self"/>
   <link href="http://leonsbox.com/"/>
-  <updated>2013-06-05T07:02:36+00:00</updated>
+  <updated>2013-06-05T07:04:42+00:00</updated>
   <id>http://leonsbox.com/</id>
   <author>
     <name><![CDATA[Leonid Bugaev]]></name>
@@ -83,10 +83,6 @@
 <p>At <a href="http://granify.com">Granify</a>, we use it on production for some time, and we are very happy with the results.</p>
 
 <p>Happy testing!</p>
-
-<hr />
-
-<p>You can discuss this post at <a href="https://news.ycombinator.com/item?id=5820338">Hacker News</a></p>
 ]]></content>
   </entry>
   
