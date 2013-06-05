@@ -36,13 +36,13 @@ This helps you to find most obvious bugs, but it's far from what you can get on 
 
 There are a few techniques to do this (better to use both):
 
-1. Deploying changes only to one of production servers, so part of users will be served by the new code. This technique has some downsides. Some of your users will see errors/bugs, and you may have to use "stick" sessions. This is quite similar to A/B testing.
+1. Deploying changes only to one of production servers, so part of users will be served by the new code. This technique has some downsides. Some of your users will see errors/bugs, and you may have to use "sticky" sessions. This is quite similar to A/B testing.
 
 2. Replaying production traffic to staging environment.
 
 Ilya Grigorik wrote a nice article on this: [Load Testing With Log Replay](http://www.igvita.com/2008/09/30/load-testing-with-log-replay)
 
-In all articles I've read, log replay techniques are mostly mentioned in the context of load testing. 
+In all articles I've read, log replay techniques are mostly mentioned in the context of load testing. I want to show you how to use log replay for daily bug testing. 
 
 Tools like [jMeter](http://jmeter.apache.org/), [httperf](https://code.google.com/p/httperf/) or [Tsung](http://tsung.erlang-projects.org/) have support for replaying logs, but it's very rudimentary or focused on load testing and not emulating real-users. Feel the difference? Real users are not just a list of requests, they have proper timing between requests, different http headers etc. For load testing, it does not matter, but for bug testing it matters a lot.
 
