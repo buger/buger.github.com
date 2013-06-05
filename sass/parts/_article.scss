@@ -35,7 +35,7 @@ article{
 
 	.entry-content{
 		margin-top: 2em;
-		
+
 		line-height: 2;
 		text-align: justify;
 		a{
@@ -109,6 +109,11 @@ article{
 			}
 
 			p { font-size: 32px; }
+
+
+			@media screen and (max-width: 1040px){
+				margin: 48px 0px;
+			}
 		}
 		iframe{
 			border: none;
