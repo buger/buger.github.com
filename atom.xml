@@ -4,7 +4,7 @@
   <title><![CDATA[leonsbox.com]]></title>
   <link href="http://leonsbox.com/atom.xml" rel="self"/>
   <link href="http://leonsbox.com/"/>
-  <updated>2013-06-05T10:50:58+00:00</updated>
+  <updated>2013-06-05T11:39:14+00:00</updated>
   <id>http://leonsbox.com/</id>
   <author>
     <name><![CDATA[Leonid Bugaev]]></name>
@@ -27,7 +27,7 @@
 <blockquote><p>No matter how many tests and fixtures you have, they just can&#8217;t cover all cases. Production traffic always differs from your expectations.</p></blockquote>
 
 
-<p>Moreover, you can just brake everything when deploying a new version, even if tests pass. This happens constantly.</p>
+<p>Moreover, you can just break everything when deploying a new version, even if tests pass. This happens constantly.</p>
 
 <p>There is a whole layer of errors that just can&#8217;t be easily found via automated  and manual testing: concurrency, server environment specific bugs, some bugs can occur from requests called in a particular order, and etc.</p>
 
