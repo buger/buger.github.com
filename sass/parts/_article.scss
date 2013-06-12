@@ -38,6 +38,11 @@ article{
 
 		line-height: 2;
 		text-align: justify;
+
+		figure.code  {
+			font-size: 0.7em;
+		}
+		
 		a{
 			&:hover{
 				text-decoration: underline;
