@@ -1,5 +1,8 @@
 source "http://rubygems.org"
 
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
+
 group :development do
   gem 'rake', '~> 0.9.2'
   gem 'rack', '~> 1.4.1'
@@ -13,6 +16,7 @@ group :development do
   gem 'rb-fsevent', '~> 0.9'
   gem 'stringex', '~> 1.4.0'
   gem 'liquid', '~> 2.3.0'
+  gem "iconv", "~> 1.0.3"
 end
 
 gem 'sinatra', '~> 1.3.2'
