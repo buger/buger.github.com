@@ -4,7 +4,7 @@
   <title><![CDATA[leonsbox.com]]></title>
   <link href="http://leonsbox.com/atom.xml" rel="self"/>
   <link href="http://leonsbox.com/"/>
-  <updated>2013-10-02T10:03:53+00:00</updated>
+  <updated>2014-09-28T07:05:56+00:00</updated>
   <id>http://leonsbox.com/</id>
   <author>
     <name><![CDATA[Leonid Bugaev]]></name>
@@ -14,105 +14,35 @@
 
   
   <entry>
-    <title type="html"><![CDATA[MongoDB reduce function for complex objects]]></title>
-    <link href="http://leonsbox.com/blog/2013/06/12/mongodb-reduce-function-for-complex-objects/"/>
-    <updated>2013-06-12T14:03:00+00:00</updated>
-    <id>http://leonsbox.com/blog/2013/06/12/mongodb-reduce-function-for-complex-objects</id>
-    <content type="html"><![CDATA[<p><a href="http://granify.com">We</a> using MongoDB map/reduce functionality for generating various near-realtime stats.
-I know almost no one likes it, but it can be very handy if used properly (analyzing only objects in working set, e.g in RAM).</p>
+    <title type="html"><![CDATA[My experience of working in startup for 3 years]]></title>
+    <link href="http://leonsbox.com/blog/2014/09/27/my-experience-of-working-in-startup-for-3-years/"/>
+    <updated>2014-09-27T19:09:00+00:00</updated>
+    <id>http://leonsbox.com/blog/2014/09/27/my-experience-of-working-in-startup-for-3-years</id>
+    <content type="html"><![CDATA[<p>It&#8217;s almost three years since I&#8217;m working for <a href="http://granify.com">Granify</a> and this was the best career decision I ever made. Below is my personal experience.</p>
 
-<p>Here is useful reduce function that I&#8217;m using almost in all map/reduce calls.</p>
+<h2>Startup founders do the hardest work, and you can learn a lot from them</h2>
 
-<p><a href="https://gist.github.com/buger/5765417">Gist</a></p>
+<p>I was lucky enough not to work for large companies, but only at Granify I had a chance to feel how it really looks like to be the founder of &#8220;living&#8221; startup. When you see happy founders receiving large VC rounds, always on hype, you may think &#8220;oh, wish I was there&#8221;. But real life happens on backstages, its a long, long way, and you hardly like it. Constant tension, always on the phone, looking for money, personal responsibility for all failures, you need to really believe in what you do to not go crazy.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Universal MongoDB reduce function for complex objects</span>
-</span><span class='line'><span class="c1">// </span>
-</span><span class='line'><span class="c1">// Example:</span>
-</span><span class='line'><span class="c1">//    </span>
-</span><span class='line'><span class="c1">//    emit({ total_views: 3, page_type: {home: 1, product: 2}, site_id: [1] })</span>
-</span><span class='line'><span class="c1">//    emit({ total_views: 5, page_type: {home: 1, collection: 4}, site_id: [2] })</span>
-</span><span class='line'><span class="c1">//    </span>
-</span><span class='line'><span class="c1">//    -&gt; reduce</span>
-</span><span class='line'><span class="c1">//    </span>
-</span><span class='line'><span class="c1">//    { total_views: 8, page_type: { home: 2, product: 2, collection: 4 }, site_id: [1,2] }</span>
-</span><span class='line'><span class="c1">// </span>
-</span><span class='line'><span class="kd">function</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">values</span><span class="p">){</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">merge_obj</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">){</span>
-</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">from</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">from</span><span class="p">[</span><span class="nx">key</span><span class="p">])</span> <span class="o">==</span> <span class="s2">&quot;[object Object]&quot;</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">to</span><span class="p">[</span><span class="nx">key</span><span class="p">])</span>
-</span><span class='line'>          <span class="nx">to</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="nx">merge_hash</span><span class="p">(</span><span class="nx">from</span><span class="p">[</span><span class="nx">key</span><span class="p">],</span> <span class="nx">to</span><span class="p">[</span><span class="nx">key</span><span class="p">])</span>
-</span><span class='line'>      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">from</span><span class="p">[</span><span class="nx">key</span><span class="p">])</span> <span class="o">==</span> <span class="s2">&quot;[object Array]&quot;</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">to</span><span class="p">[</span><span class="nx">key</span><span class="p">])</span>
-</span><span class='line'>          <span class="nx">to</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="nx">to</span><span class="p">[</span><span class="nx">key</span><span class="p">].</span><span class="nx">push</span><span class="p">(</span><span class="nx">from</span><span class="p">[</span><span class="nx">key</span><span class="p">])</span>
-</span><span class='line'>      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">to</span><span class="p">[</span><span class="nx">key</span><span class="p">])</span>
-</span><span class='line'>          <span class="nx">to</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="nx">to</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">+=</span> <span class="nx">from</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nx">values</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">){</span>
-</span><span class='line'>    <span class="nx">merge_obj</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">})</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">return</span> <span class="nx">result</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>I always have few active side projects, and believe that its good practice for all engineers. Few times I tried to convert them to full-time business, but failed. And after watching to our perfect CEO Jeff Lawrence i understood why: you need to have tremendous vision and passion to withstand all the weight and responsibility, and i still need to learn a lot from him, before i can start something own.</p>
 
+<h2>It&#8217;s not about succeeding, its about failing and not dying.</h2>
 
-<hr />
+<p>There are bad and good times. If you not in top 1% of lucky startups, it mostly bad times. And the only thing startup need to do is not to die. Sometimes it takes years of failing to build the successful business, and you need to be ready for that. Do not wait for immediate outcome, and do not despair if you fail: learn from it and move on.</p>
 
-<p>You can discuss this post at <a href="https://news.ycombinator.com/item?id=5868240">Hacker News</a></p>
+<h2>Trust and responsibility</h2>
+
+<p>Vision and idea are nothing without a good team. It takes time to build it, years, and for sure it is the most challenging startup goal. It&#8217;s about building trust and showing team members that without them firm is nothing. CEO role is to be transparent about all business metrics and goals, you all must be on the same page. When people feel that their decisions and opinions influence business, they starting to take work personally and feel responsible for firm future. It helps to survive failures and build strong relationships.</p>
+
+<h2>Best learning experience</h2>
+
+<p>At early-stage startups no one have roles, you do all the work which you can handle. Whole atmosphere of a startup is moving you out of you comfort zone and enforces to learn new things that you would never do in ordinary work. During last 3 years i learned how to work in distributed team (and help to build it), talk with people, think in terms of business value and do things that <a href="http://leonsbox.com/blog/2012/12/01/your-code-sucks/">do not scale</a>, independence, manage dozens of servers and services, create efficient architectures, delegate tasks, learn quadrillions of new technologies, and much much more.</p>
+
+<h2>Thank you note</h2>
+
+<p>I want personally thank Jeff Lawrence and the rest of our <a href="http://granify.com/about/">Team</a> for all the hard work and for the experience we are going through together.</p>
+
+<p>And we are <a href="http://granify.com/contact/">hiring</a>.</p>
 ]]></content>
   </entry>
   
@@ -200,21 +130,21 @@ I know almost no one likes it, but it can be very handy if used properly (analyz
     <id>http://leonsbox.com/blog/2012/12/01/your-code-sucks</id>
     <content type="html"><![CDATA[<p>I know by myself, <strong>EVERY</strong> time when I get a new project, with existing code base, first thought is frustration, and desire to rewrite it the way it feels right. It works for all programmers without exception.</p>
 
-<p>There is one thing I’ve learned so far: you need to stifle your inner grumbler. If you work in a team, you have to accept that things not always be as you want. Every developer has its own tricks. You have to trust and learn to delegate.</p>
+<p>There is one thing I&#8217;ve learned so far: you need to stifle your inner grumbler. If you work in a team, you have to accept that things not always be as you want. Every developer has its own tricks. You have to trust and learn to delegate.</p>
 
 <p>The only thing that matter is <strong>Business value</strong>. If you want to grow and not be just coder you need to understand this term.</p>
 
 <p>Almost all project goes through same stages, and on each stage you have a different goal and ways to accomplish them. On earlier stages, it means speed of development and rapid prototyping. Further its challenges like growing and scaling team and product. If all goes well, someday you will rewrite all your code to Scala :)</p>
 
-<p>Lack of documentation and some temporary code is <strong>OK</strong> on early stages; it don’t have to be perfect, it should be good enough. Things change if you need to jump higher and scale team. You have to think about ease of learning for newcomers, and support costs, because it becomes crucial for business value.</p>
+<p>Lack of documentation and some temporary code is <strong>OK</strong> on early stages; it don&#8217;t have to be perfect, it should be good enough. Things change if you need to jump higher and scale team. You have to think about ease of learning for newcomers, and support costs, because it becomes crucial for business value.</p>
 
-<p>Remember Twitter story. When it started it was super buggy Rails app, that was down all the time. Now check where they now, they looks much more like enterprise, Java everywhere, 1500+ employees. Good project is like a book; you can’t skip and start reading from the middle, you need to pass all stages one-by-one.</p>
+<p>Remember Twitter story. When it started it was super buggy Rails app, that was down all the time. Now check where they now, they looks much more like enterprise, Java everywhere, 1500+ employees. Good project is like a book; you can&#8217;t skip and start reading from the middle, you need to pass all stages one-by-one.</p>
 
 <p>Each project has a unique history, respect it, do not make hasty decisions, always think about business value.</p>
 
 <h2>UPDATE</h2>
 
-<p>For sure I don’t mean that you should write crappy code. I mostly talking about premature-optimizations and rewriting from scratch. Right now there are lot of tools and techniques that allow to control code quality. At least tests, code-reviews and code analysers.</p>
+<p>For sure I don&#8217;t mean that you should write crappy code. I mostly talking about premature-optimizations and rewriting from scratch. Right now there are lot of tools and techniques that allow to control code quality. At least tests, code-reviews and code analysers.</p>
 
 <p>Excellent article from Joel Spolsky <a href="http://www.joelonsoftware.com/articles/fog0000000069.html">Things You Should Never Do</a></p>
 
