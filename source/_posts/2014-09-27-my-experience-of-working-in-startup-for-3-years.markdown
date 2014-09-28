@@ -35,3 +35,7 @@ At early-stage startups no one have roles, you do all the work which you can han
 I want personally thank Jeff Lawrence and the rest of our [Team](http://granify.com/about/) for all the hard work and for the experience we are going through together.
 
 And we are [hiring](http://granify.com/contact/).
+
+____
+
+Send me message on [Twitter](http://twitter.com/buger) or [Mail](mailto:leonsbox@gmail.com)
