@@ -63,7 +63,7 @@ Gor allows you to automatically replicate traffic from production to staging (or
 
 Gor consists of 2 parts: Listener and Replay server. You should install Listener on your production web servers, and Replay server on a separate machine that will forward traffic to given address. The data flow is shown in the following diagram::
 
-![Diagram](https://a248.e.akamai.net/camo.github.com/c802ae10dfd1b0b2519c5726eedad31bac18c0f6/687474703a2f2f692e696d6775722e636f6d2f7a5a43465043592e706e67)
+![Diagram](https://camo.githubusercontent.com/556d4aa5db32de9535d84d6c6c07f6564b43fc0b/687474703a2f2f692e696d6775722e636f6d2f396d716a32534b2e706e67)
 
 **Gor supports rate limiting**. This is a very important feature since staging environment usually uses fewer servers than production, and you'll want to set maximum requests per second that staging can handle. 
 
